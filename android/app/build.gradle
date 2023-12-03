@@ -2,6 +2,7 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+    id 'com.google.gms.google-services'
 }
 
 def localProperties = new Properties()
@@ -41,7 +42,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.foodzee"
+        applicationId "com.fzee.foodzee"
         minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
@@ -60,4 +61,6 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    implementation platform('com.google.firebase:firebase-bom:32.6.0')
+}

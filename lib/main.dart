@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:foodzee/view/auth/auth_view.dart';
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-  // await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

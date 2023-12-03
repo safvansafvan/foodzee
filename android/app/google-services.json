@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "767053170136",
+    "project_id": "foodzee-2ada1",
+    "storage_bucket": "foodzee-2ada1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:767053170136:android:fa642592de809be23b5ead",
+        "android_client_info": {
+          "package_name": "com.fzee.foodzee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2gurNRsFdLBur5di4V-_IUt1dt_Mnm3E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
