@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodzee/view/auth/auth_view.dart';
 import 'package:foodzee/view/auth/otp_view.dart';
 import 'package:foodzee/view/home/home.dart';
 import 'package:foodzee/view/widget/toast_msg.dart';
@@ -64,5 +65,26 @@ class PhoneLoginProvider extends ChangeNotifier {
   void clearController() {
     phoneNumberCtrl.clear();
     otpController.clear();
+  }
+
+  handleScreens(context) {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      return const HomeView();
+    } else {
+      return AuthView();
+    }
+  }
+
+  Future<void> logout(context) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AuthView(),
+      ),
+    );
+
+    showMsgToast(msg: 'Logout');
   }
 }

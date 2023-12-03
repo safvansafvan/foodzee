@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:foodzee/controller/providers/phone_login_provider.dart';
-import 'package:foodzee/view/auth/auth_view.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -15,6 +14,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PhoneLoginProvider provider = PhoneLoginProvider();
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => PhoneLoginProvider())
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: AuthView(),
+        home: provider.handleScreens(context),
       ),
     );
   }
