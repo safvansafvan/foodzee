@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodzee/controller/const.dart';
+import 'package:foodzee/view/menu/menu.dart';
 import 'package:foodzee/view/tab_bar/from_barnyard.dart';
 import 'package:foodzee/view/tab_bar/from_india.dart';
 import 'package:foodzee/view/tab_bar/salads_soups.dart';
@@ -32,7 +33,13 @@ class _HomeViewState extends State<HomeView>
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MenuView(),
+                ));
+          },
           icon: const Icon(Icons.menu),
         ),
         actions: [
