@@ -22,6 +22,9 @@ dependencies:
   pinput: ^3.0.1
   shared_preferences: ^2.2.2
   jwt_decoder: 2.0.1
+  http: ^1.1.2
+  google_sign_in: ^6.1.6
+  sign_in_button: ^3.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

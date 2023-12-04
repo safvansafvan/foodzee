@@ -3,9 +3,23 @@ import 'package:foodzee/controller/const.dart';
 import 'package:foodzee/controller/providers/phone_login_provider.dart';
 import 'package:foodzee/view/auth/auth_view.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class MenuView extends StatelessWidget {
+class MenuView extends StatefulWidget {
   const MenuView({super.key});
+
+  @override
+  State<MenuView> createState() => _MenuViewState();
+}
+
+class _MenuViewState extends State<MenuView> {
+  String? name;
+  String? url;
+  @override
+  void initState() {
+    super.initState();
+    userDatas();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +37,14 @@ class MenuView extends StatelessWidget {
                     bottomRight: Radius.circular(25))),
             child: Column(
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: 30.0),
-                  child: CircleAvatar(radius: 50),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30.0),
+                  child: CircleAvatar(
+                      radius: 50, backgroundImage: NetworkImage(url!)),
                 ),
                 commonHeight,
                 Text(
-                  'Muhammed',
+                  name ?? 'Unknown',
                   style: TextStyle(
                       fontSize: 18, fontWeight: FontWeight.w600, color: kwhite),
                 )
@@ -55,5 +70,11 @@ class MenuView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> userDatas() async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    name = storage.getString('name');
+    url = storage.getString('url');
   }
 }

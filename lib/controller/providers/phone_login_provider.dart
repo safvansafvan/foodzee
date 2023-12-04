@@ -5,9 +5,10 @@ import 'package:foodzee/view/auth/auth_view.dart';
 import 'package:foodzee/view/auth/otp_view.dart';
 import 'package:foodzee/view/home/home.dart';
 import 'package:foodzee/view/widget/toast_msg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class PhoneLoginProvider extends ChangeNotifier {
-  //phone auth view
+  //phone auth view -----------------------------------------------------------------------------------------
   String countryCode = '+91';
   TextEditingController phoneNumberCtrl = TextEditingController();
   String verifyId = '';
@@ -36,7 +37,7 @@ class PhoneLoginProvider extends ChangeNotifier {
     }
   }
 
-  // otp auth view
+  // otp auth view -----------------------------------------------------------------
 
   final TextEditingController otpController = TextEditingController();
 
@@ -67,6 +68,37 @@ class PhoneLoginProvider extends ChangeNotifier {
     otpController.clear();
   }
 
+  /// continue with google ------------------------------------------------------------------------------
+  User? user;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  Future<User?> signInWithGoogle({required BuildContext context}) async {
+    User? user;
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+      try {
+        final UserCredential userCredential =
+            await auth.signInWithCredential(credential);
+
+        user = userCredential.user;
+      } on FirebaseAuthException catch (e) {
+        log(e.toString());
+      }
+    } else {
+      log("account is doesn't exist");
+    }
+
+    return user;
+  }
+
   handleScreens(context) {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
@@ -77,14 +109,19 @@ class PhoneLoginProvider extends ChangeNotifier {
   }
 
   Future<void> logout(context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AuthView(),
-      ),
-    );
-
-    showMsgToast(msg: 'Logout');
+    try {
+      await FirebaseAuth.instance.signOut();
+      await auth.signOut();
+      final googleSignIn = GoogleSignIn();
+      await googleSignIn.signOut();
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => AuthView()),
+        (route) => false,
+      );
+      showMsgToast(msg: 'Logout');
+    } catch (e) {
+      log('Error during logout: $e');
+    }
   }
 }

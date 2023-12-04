@@ -12,7 +12,20 @@
           "package_name": "com.fzee.foodzee"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "767053170136-8l6bi46hc61mdt5c9j2g8e0lsmcp48dg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fzee.foodzee",
+            "certificate_hash": "938f6f52dd2af4ee65d9deda694afb8edf08d756"
+          }
+        },
+        {
+          "client_id": "767053170136-vnd3r8n4o0lae0v5nd493dkc47m13lp8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD2gurNRsFdLBur5di4V-_IUt1dt_Mnm3E"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "767053170136-vnd3r8n4o0lae0v5nd493dkc47m13lp8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

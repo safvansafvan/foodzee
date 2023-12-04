@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:foodzee/controller/providers/phone_login_provider.dart';
+import 'package:foodzee/controller/providers/resturent_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => PhoneLoginProvider())
+        ChangeNotifierProvider(create: (context) => PhoneLoginProvider()),
+        // ChangeNotifierProvider(create: (context) => RestaurantProvider())
       ],
       child: MaterialApp(
         title: 'foodzee',
