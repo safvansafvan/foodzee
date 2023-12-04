@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodzee/controller/const.dart';
-import 'package:foodzee/view/menu/menu.dart';
+import 'package:foodzee/view/menu/drawer.dart';
 import 'package:foodzee/view/tab_bar/from_barnyard.dart';
 import 'package:foodzee/view/tab_bar/from_india.dart';
 import 'package:foodzee/view/tab_bar/salads_soups.dart';
@@ -15,6 +15,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -31,14 +32,11 @@ class _HomeViewState extends State<HomeView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MenuView(),
-                ));
+            _scaffoldKey.currentState?.openDrawer();
           },
           icon: const Icon(Icons.menu),
         ),
@@ -68,6 +66,7 @@ class _HomeViewState extends State<HomeView>
       body: TabBarView(
           controller: _tabController,
           children: const [SaladsAndSoups(), FromBarnyard(), FromIndia()]),
+      drawer: const MenuView(),
     );
   }
 }

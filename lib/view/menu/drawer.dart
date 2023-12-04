@@ -9,8 +9,9 @@ class MenuView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
+    return Drawer(
+      width: 350,
+      child: Column(
         children: [
           Container(
             height: 250,
@@ -22,18 +23,10 @@ class MenuView extends StatelessWidget {
                     bottomRight: Radius.circular(25))),
             child: Column(
               children: [
-                commonHeight,
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon:
-                            Icon(Icons.arrow_back_ios_rounded, color: kwhite)),
-                  ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 30.0),
+                  child: CircleAvatar(radius: 50),
                 ),
-                const CircleAvatar(radius: 50),
                 commonHeight,
                 Text(
                   'Muhammed',
