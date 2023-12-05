@@ -14,7 +14,6 @@ class SaladsAndSoups extends StatefulWidget {
 
 class _SaladsAndSoupsState extends State<SaladsAndSoups> {
   late Future<List<CategoryModel>?> restaurantFuture;
-
   @override
   void initState() {
     super.initState();
@@ -29,53 +28,91 @@ class _SaladsAndSoupsState extends State<SaladsAndSoups> {
       future: restaurantFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (!snapshot.hasData || snapshot.data == null) {
-          return const Text('No data available');
+          return const Center(child: Text('No data available'));
         } else {
-          return ListView.builder(
+          return ListView.separated(
+            separatorBuilder: (context, index) => const Divider(),
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               var menu = snapshot.data![index];
 
               return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(Icons.lock_clock),
+                    // const Icon(Icons.lock_clock),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(menu.dishName.toString()),
+                          Text(
+                            menu.dishName.toString(),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 16),
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Price: ${menu.dishPrice} SAR'),
-                              Text('Calories: ${menu.dishCalories}'),
+                              Text(
+                                '${menu.dishCurrency}: ${menu.dishPrice}',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 16),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.only(right: 8),
+                                child: Text(
+                                  'Calories: ${menu.dishCalories}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16),
+                                ),
+                              ),
                             ],
                           ),
-                          Text(menu.dishDescription.toString()),
+                          commonHeight,
+                          Text(
+                            menu.dishDescription.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16,
+                                color: kgrey),
+                          ),
+                          commonHeight,
                           Container(
-                            width: 108,
+                            alignment: Alignment.topLeft,
+                            constraints: const BoxConstraints(
+                                maxWidth: 130, minWidth: 108, maxHeight: 43),
                             decoration: BoxDecoration(
                               color: kgreen,
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 IconButton(
                                   onPressed: () {},
-                                  icon: const Icon(Icons.remove),
+                                  icon: Icon(
+                                    Icons.remove,
+                                    color: kwhite,
+                                  ),
                                 ),
-                                const Text('0'),
+                                Text(
+                                  '0',
+                                  style: TextStyle(
+                                      color: kwhite,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16),
+                                ),
                                 IconButton(
                                   onPressed: () {},
-                                  icon: const Icon(Icons.add),
+                                  icon: Icon(Icons.add, color: kwhite),
                                 )
                               ],
                             ),
@@ -84,9 +121,12 @@ class _SaladsAndSoupsState extends State<SaladsAndSoups> {
                       ),
                     ),
                     Container(
-                      height: 80,
-                      width: 50,
-                      color: kgreen,
+                      height: 75,
+                      width: 60,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(menu.dishImage))),
                     )
                   ],
                 ),

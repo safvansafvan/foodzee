@@ -40,7 +40,11 @@ class _MenuViewState extends State<MenuView> {
                 Padding(
                   padding: const EdgeInsets.only(top: 30.0),
                   child: CircleAvatar(
-                      radius: 50, backgroundImage: NetworkImage(url!)),
+                      radius: 50,
+                      backgroundImage: url != null
+                          ? NetworkImage(url!)
+                          : const NetworkImage(
+                              'https://www.google.com/search?q=placeholder&tbm=isch&chips=q:placeholder,g_1:user:DY7ncMF3jq0%3D&rlz=1C1GCEA_enIN1068IN1068&hl=en&sa=X&ved=2ahUKEwjO-Lu40veCAxU7SmwGHUxsBXgQ4lYoCHoECAEQPg&biw=1519&bih=707#imgrc=rY53wXDnjg0lpM')),
                 ),
                 commonHeight,
                 Text(
@@ -74,7 +78,9 @@ class _MenuViewState extends State<MenuView> {
 
   Future<void> userDatas() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
-    name = storage.getString('name');
-    url = storage.getString('url');
+    setState(() {
+      name = storage.getString('name');
+      url = storage.getString('url');
+    });
   }
 }
